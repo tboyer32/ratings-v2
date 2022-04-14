@@ -9,5 +9,13 @@
   {{ movie.overview }}
 </p>
 
-<img src="{{ movie.poster_path }}">
+<img src="{{ movie.poster_path }}" width="200">
+<form action="/movies/{{ movie.movie_id }}" method="POST">
+  <label for="score-1">1</label><input type="radio" id="score-1" name="score" value="1">
+  <label for="score-2">2</label><input type="radio" id="score-2" name="score" value="2">
+  <label for="score-3">3</label><input type="radio" id="score-3" name="score" value="3">
+  <label for="score-4">4</label><input type="radio" id="score-1" name="score" value="4">
+  <label for="score-5">5</label><input type="radio" id="score-1" name="score" value="5">
+  <input type="submit" value="Submit Rating">
+</form>
 {% endblock %}

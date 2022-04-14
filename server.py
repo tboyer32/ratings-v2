@@ -38,6 +38,32 @@ def view_movie(movie_id):
     return render_template('movie_details.html', movie=movie)
 
 
+@app.route('/movies/<int:movie_id>', methods = ["POST"])
+def submit_rating(movie_id):
+    #check if user is logged in (session)
+        #flash if not logged in
+    #add the rating to the db crud.create_rating
+        #flash success
+
+    #TODO query for movie to pass in - not movie_id
+    
+    session_user = session.get('user_id', False)
+    
+    if session_user:
+        score = int(request.form.get('score'))
+        movie = crud.get_movie_by_id(movie_id)
+        user = crud.get_user_by_id(session_user)
+        rating = crud.create_rating(user, movie, score)
+        db.session.add(rating)
+        db.session.commit()
+        flash(f"You have rated this movie with a {score}.")
+        #flash(f"Score = {score}, movie_id = {movie_id}, user = {user_id}")
+    else:
+        flash('You must be logged in to rate movies.')
+
+
+    return redirect(f'/movies/{movie_id}')
+
 @app.route('/users')
 def view_users():
     """Show all users"""
